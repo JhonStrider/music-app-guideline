@@ -8,26 +8,16 @@
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
 
   :root{
-    --bg:#12161c;
-    --bg-panel:#1a212b;
-    --bg-panel-raised:#212936;
-    --line:#2b3341;
-    --text:#ede7d8;
-    --text-muted:#8b93a1;
-    --gold:#c9a24b;
-    --gold-dim:#8a723a;
-    --teal:#5c8a82;
-    --red-flat:#b5654f;
+    --bg:#12161c; --bg-panel:#1a212b; --bg-panel-raised:#212936; --line:#2b3341;
+    --text:#ede7d8; --text-muted:#8b93a1; --gold:#c9a24b; --gold-dim:#8a723a;
+    --teal:#5c8a82; --red-flat:#b5654f;
   }
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
     background: radial-gradient(ellipse at top, #1a212b 0%, #12161c 55%);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
-    min-height:100vh;
-    padding:28px 16px 60px;
-    -webkit-font-smoothing:antialiased;
+    color:var(--text); font-family:'Inter',sans-serif; min-height:100vh;
+    padding:28px 16px 60px; -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:640px;margin:0 auto;}
   .eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
@@ -43,6 +33,7 @@
   .tone-picker button:hover{background:var(--bg-panel-raised);color:var(--text);}
   .tone-current{font-family:'Fraunces',serif;font-weight:600;font-size:16px;min-width:34px;text-align:center;color:var(--gold);}
   .tone-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;margin-right:2px;}
+  .hint{font-size:12px;color:var(--text-muted);margin:-14px 0 20px;}
   .section{margin-bottom:30px;}
   .section-title{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
   .section-title .rep{color:var(--gold);}
@@ -52,12 +43,14 @@
   .bars{display:flex;flex-wrap:wrap;gap:16px 10px;}
   .bar{position:relative;display:flex;flex-direction:column;align-items:center;}
   .peg{width:5px;height:5px;border-radius:50%;background:var(--gold-dim);margin-bottom:6px;}
-  .tag{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;background:var(--bg-panel);border:1px solid var(--line);border-radius:6px;padding:7px 12px;min-width:44px;text-align:center;color:var(--text);}
+  .tag{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:15px;background:var(--bg-panel);border:1px solid var(--line);border-radius:6px;padding:7px 12px;min-width:44px;text-align:center;color:var(--text);cursor:pointer;transition:box-shadow .15s, transform .1s;}
   .tag.chord{color:var(--gold);}
   .tag.min{color:var(--teal);}
+  .tag:active{transform:scale(.96);}
+  .tag.target{box-shadow:0 0 0 2px var(--gold);}
   .sec-note{font-size:12px;color:var(--text-muted);margin-top:10px;font-style:italic;}
   .tuner{margin-top:36px;background:var(--bg-panel);border:1px solid var(--line);border-radius:16px;padding:20px;}
-  .tuner-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .tuner-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px;}
   .tuner-head h2{font-family:'Fraunces',serif;font-size:18px;font-weight:600;margin:0;}
   .mic-btn{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--gold);color:#12161c;padding:9px 14px;border-radius:8px;}
   .mic-btn.listening{background:var(--red-flat);color:#fff;}
@@ -73,6 +66,22 @@
   .tuner-note{font-size:12px;color:var(--text-muted);line-height:1.5;margin-top:14px;border-top:1px solid var(--line);padding-top:12px;}
   .status{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);text-align:center;padding:4px 0 0;}
   footer{margin-top:34px;color:var(--text-muted);font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.03em;text-align:center;}
+
+  /* modo banda */
+  .band-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
+  .band-card{background:var(--bg-panel-raised);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+  .band-card .label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;}
+  .band-card .value{font-family:'Fraunces',serif;font-weight:700;font-size:26px;color:var(--text);}
+  .band-card.match .value{color:var(--teal);}
+  .band-card.mismatch .value{color:var(--gold);}
+  .match-bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:14px 0 6px;}
+  .match-fill{height:100%;background:var(--text-muted);width:0%;transition:width .12s linear, background .12s;}
+  .match-fill.ok{background:var(--teal);}
+  .candidates{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:10px;}
+  .cand{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);background:var(--bg-panel-raised);border:1px solid var(--line);border-radius:6px;padding:4px 8px;}
+  .cand.top{color:var(--gold);border-color:var(--gold-dim);}
+  .nav-row{display:flex;justify-content:center;gap:10px;margin-top:14px;}
+  .nav-btn{all:unset;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);background:var(--bg-panel-raised);border:1px solid var(--line);border-radius:8px;padding:8px 14px;}
 </style>
 </head>
 <body>
@@ -94,25 +103,58 @@
       <button id="tomUp">+</button>
     </div>
   </div>
+  <div class="hint">Toque em qualquer acorde da cifra abaixo para marcá-lo como "esperado" no modo banda.</div>
 
   <div id="song"></div>
 
   <div class="tuner">
     <div class="tuner-head">
       <h2>Ouvir &amp; identificar</h2>
+      <div class="seg" id="modeSeg">
+        <button data-mode="nota" class="active">Nota isolada</button>
+        <button data-mode="banda">Banda (beta)</button>
+      </div>
+    </div>
+
+    <!-- modo nota -->
+    <div id="painelNota">
+      <div class="readout">
+        <span class="note-big" id="noteBig">—</span>
+        <span class="note-oct" id="noteOct"></span>
+      </div>
+      <div class="cents-wrap">
+        <div class="cents-track"><div class="cents-mid"></div><div class="cents-dot" id="centsDot"></div></div>
+        <div class="cents-label" id="centsLabel">toque uma nota isolada</div>
+      </div>
+    </div>
+
+    <!-- modo banda -->
+    <div id="painelBanda" style="display:none;">
+      <div class="band-grid">
+        <div class="band-card">
+          <div class="label">Esperado</div>
+          <div class="value" id="expectedChord">D</div>
+        </div>
+        <div class="band-card" id="detectedCard">
+          <div class="label">Detectado agora</div>
+          <div class="value" id="detectedChord">—</div>
+        </div>
+      </div>
+      <div class="match-bar"><div class="match-fill" id="matchFill"></div></div>
+      <div class="cents-label" id="matchLabel">aguardando áudio...</div>
+      <div class="candidates" id="candidatesRow"></div>
+      <div class="nav-row">
+        <button class="nav-btn" id="prevBar">‹ acorde anterior</button>
+        <button class="nav-btn" id="nextBar">próximo acorde ›</button>
+      </div>
+    </div>
+
+    <div class="status" id="micStatus"></div>
+    <div style="text-align:center;margin-top:16px;">
       <button class="mic-btn" id="micBtn">▶ Ativar mic</button>
     </div>
-    <div class="readout">
-      <span class="note-big" id="noteBig">—</span>
-      <span class="note-oct" id="noteOct"></span>
-    </div>
-    <div class="cents-wrap">
-      <div class="cents-track"><div class="cents-mid"></div><div class="cents-dot" id="centsDot"></div></div>
-      <div class="cents-label" id="centsLabel">toque uma nota isolada</div>
-    </div>
-    <div class="status" id="micStatus"></div>
-    <div class="tuner-note">
-      Detecta a <b>nota isolada</b> tocada perto do microfone. Acorde de banda completa ao vivo é fase 2.
+    <div class="tuner-note" id="modeNote">
+      Detecta a <b>nota isolada</b> tocada perto do microfone. Troque para "Banda (beta)" pra conferir se o acorde que a banda toca bate com o esperado da cifra.
     </div>
   </div>
 
@@ -124,8 +166,8 @@ const KEYS = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 const MAJOR_STEPS = [0,2,4,5,7,9,11];
 const DEGREE_NAMES = ["I","ii","iii","IV","V","vi","vii°"];
 const DEGREE_QUALITY = ["maj","min","min","maj","maj","min","dim"];
+const QUALITY_INTERVALS = {maj:[0,4,7], min:[0,3,7], dim:[0,3,6]};
 
-// bar: {deg, extra?, over?}  -- extra = extensão (ex "7", "7M(2)"); over = grau do baixo (slash)
 const song = [
   { title:"Intro", bars:[
     {deg:0}, {deg:5,extra:"7"}, {deg:4}, {deg:3,extra:"7M(2)",over:0}
@@ -152,10 +194,10 @@ const song = [
 
 let tomIndex = KEYS.indexOf("D");
 let view = "grau";
+let flatBars = []; // lista linear de todos os bars pra navegação prev/next
+let targetIdx = 0;
 
-function rootLetter(deg, tonicIdx){
-  return KEYS[(tonicIdx + MAJOR_STEPS[deg]) % 12];
-}
+function rootLetter(deg, tonicIdx){ return KEYS[(tonicIdx + MAJOR_STEPS[deg]) % 12]; }
 function chordName(bar, tonicIdx){
   const q = DEGREE_QUALITY[bar.deg];
   const qSuffix = q === "maj" ? "" : q === "min" ? "m" : "°";
@@ -173,7 +215,8 @@ function grauName(bar){
 function renderSong(){
   const el = document.getElementById('song');
   el.innerHTML = "";
-  song.forEach(sec=>{
+  flatBars = [];
+  song.forEach((sec, si)=>{
     const secDiv = document.createElement('div');
     secDiv.className = "section";
     const h = document.createElement('div');
@@ -185,15 +228,19 @@ function renderSong(){
     board.className = "board";
     const bars = document.createElement('div');
     bars.className = "bars";
-    sec.bars.forEach(bar=>{
+    sec.bars.forEach((bar, bi)=>{
+      const flatIndex = flatBars.length;
+      flatBars.push(bar);
       const barEl = document.createElement('div');
       barEl.className = "bar";
       const peg = document.createElement('div');
       peg.className = "peg";
       const tag = document.createElement('div');
       const isMin = DEGREE_QUALITY[bar.deg] !== "maj";
-      tag.className = "tag " + (isMin ? "min" : "chord");
+      tag.className = "tag " + (isMin ? "min" : "chord") + (flatIndex===targetIdx ? " target" : "");
       tag.textContent = view === "grau" ? grauName(bar) : chordName(bar, tomIndex);
+      tag.dataset.flatIndex = flatIndex;
+      tag.addEventListener('click', ()=>{ targetIdx = flatIndex; renderSong(); updateExpected(); });
       barEl.appendChild(peg);
       barEl.appendChild(tag);
       bars.appendChild(barEl);
@@ -218,13 +265,38 @@ document.getElementById('viewSeg').addEventListener('click', (e)=>{
   btn.classList.add('active');
   view = btn.dataset.view;
   renderSong();
+  updateExpected();
 });
-document.getElementById('tomUp').addEventListener('click', ()=>{ tomIndex=(tomIndex+1)%12; renderSong(); });
-document.getElementById('tomDown').addEventListener('click', ()=>{ tomIndex=(tomIndex+11)%12; renderSong(); });
+document.getElementById('tomUp').addEventListener('click', ()=>{ tomIndex=(tomIndex+1)%12; renderSong(); updateExpected(); });
+document.getElementById('tomDown').addEventListener('click', ()=>{ tomIndex=(tomIndex+11)%12; renderSong(); updateExpected(); });
+document.getElementById('nextBar').addEventListener('click', ()=>{ targetIdx=(targetIdx+1)%flatBars.length; renderSong(); updateExpected(); });
+document.getElementById('prevBar').addEventListener('click', ()=>{ targetIdx=(targetIdx-1+flatBars.length)%flatBars.length; renderSong(); updateExpected(); });
+
+function updateExpected(){
+  const bar = flatBars[targetIdx];
+  document.getElementById('expectedChord').textContent = chordName(bar, tomIndex) + " (" + grauName(bar) + ")";
+}
 
 renderSong();
+updateExpected();
 
-/* afinador (autocorrelação) */
+/* ---------- modo (nota / banda) ---------- */
+let mode = "nota";
+document.getElementById('modeSeg').addEventListener('click', (e)=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  mode = btn.dataset.mode;
+  document.getElementById('painelNota').style.display = mode==="nota" ? "" : "none";
+  document.getElementById('painelBanda').style.display = mode==="banda" ? "" : "none";
+  document.getElementById('modeNote').innerHTML = mode==="nota"
+    ? 'Detecta a <b>nota isolada</b> tocada perto do microfone. Troque para "Banda (beta)" pra conferir se o acorde que a banda toca bate com o esperado da cifra.'
+    : 'Modo Banda <b>não transcreve acordes livremente</b> — ele confere se o áudio bate com um dos acordes que já aparecem nesta música (marcado como "esperado"). Funciona melhor quando o instrumento harmônico (violão/teclado) está audível; bateria/graves muito altos atrapalham.';
+  if(listening){ stopListening(); startListening(); } // reinicia no novo modo
+});
+
+/* ---------- afinador nota isolada (autocorrelação) ---------- */
 const NOTE_NAMES = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
 let audioCtx, analyser, mediaStream, rafId;
 const micBtn = document.getElementById('micBtn');
@@ -267,6 +339,50 @@ function autoCorrelate(buf, sampleRate){
   if(a) T0 = T0 - b/(2*a);
   return sampleRate/T0;
 }
+
+/* ---------- modo banda: chroma + template matching ---------- */
+function songVocabulary(tonicIdx){
+  const seen = {};
+  song.forEach(sec=> sec.bars.forEach(bar=>{
+    const root = rootLetter(bar.deg, tonicIdx);
+    const q = DEGREE_QUALITY[bar.deg];
+    const key = root+"_"+q;
+    if(!seen[key]) seen[key] = { root, quality:q, label: root + (q==="maj"?"":q==="min"?"m":"°") };
+  }));
+  return Object.values(seen);
+}
+function computeChroma(freqData, sampleRate, fftSize){
+  const chroma = new Array(12).fill(0);
+  const binHz = sampleRate / fftSize;
+  for(let i=2;i<freqData.length;i++){
+    const freq = i * binHz;
+    if(freq < 70 || freq > 4000) continue;
+    const mag = Math.pow(10, freqData[i]/20);
+    const midi = 69 + 12*Math.log2(freq/440);
+    const pc = ((Math.round(midi) % 12) + 12) % 12;
+    chroma[pc] += mag;
+  }
+  const sum = chroma.reduce((a,b)=>a+b, 0) || 1;
+  return chroma.map(v=>v/sum);
+}
+function scoreChord(chroma, root, quality){
+  const rootIdx = KEYS.indexOf(root);
+  const template = new Array(12).fill(0);
+  QUALITY_INTERVALS[quality].forEach(iv=> template[(rootIdx+iv)%12] = 1);
+  let inChord = 0, outChord = 0;
+  for(let i=0;i<12;i++){
+    if(template[i]) inChord += chroma[i]; else outChord += chroma[i];
+  }
+  return inChord - 0.5*outChord;
+}
+
+const expectedChordEl = document.getElementById('expectedChord');
+const detectedChordEl = document.getElementById('detectedChord');
+const detectedCard = document.getElementById('detectedCard');
+const matchFill = document.getElementById('matchFill');
+const matchLabel = document.getElementById('matchLabel');
+const candidatesRow = document.getElementById('candidatesRow');
+
 async function startListening(){
   try{
     mediaStream = await navigator.mediaDevices.getUserMedia({ audio:{ echoCancellation:false, noiseSuppression:false, autoGainControl:false } });
@@ -277,26 +393,57 @@ async function startListening(){
   audioCtx = new (window.AudioContext||window.webkitAudioContext)();
   const source = audioCtx.createMediaStreamSource(mediaStream);
   analyser = audioCtx.createAnalyser();
-  analyser.fftSize = 2048;
+  analyser.fftSize = mode === "banda" ? 8192 : 2048;
+  analyser.smoothingTimeConstant = mode === "banda" ? 0.6 : 0;
   source.connect(analyser);
   micBtn.textContent = "■ Parar";
   micBtn.classList.add('listening');
   micStatus.textContent = "ouvindo...";
-  const buf = new Float32Array(analyser.fftSize);
+
+  const timeBuf = new Float32Array(analyser.fftSize);
+  const freqBuf = new Float32Array(analyser.frequencyBinCount);
+
   function loop(){
-    analyser.getFloatTimeDomainData(buf);
-    const freq = autoCorrelate(buf, audioCtx.sampleRate);
-    if(freq !== -1 && freq > 60 && freq < 1500){
-      const {name, octave, cents} = freqToNote(freq);
-      noteBig.textContent = name;
-      noteBig.classList.add('live');
-      noteOct.textContent = octave;
-      const clamped = Math.max(-50, Math.min(50, cents));
-      centsDot.style.left = (50 + clamped) + "%";
-      centsDot.style.background = Math.abs(cents) < 8 ? "#5c8a82" : "#c9a24b";
-      centsLabel.textContent = (cents>0?"+":"") + cents + " cents · " + Math.round(freq) + " Hz";
+    if(mode === "nota"){
+      analyser.getFloatTimeDomainData(timeBuf);
+      const freq = autoCorrelate(timeBuf, audioCtx.sampleRate);
+      if(freq !== -1 && freq > 60 && freq < 1500){
+        const {name, octave, cents} = freqToNote(freq);
+        noteBig.textContent = name;
+        noteBig.classList.add('live');
+        noteOct.textContent = octave;
+        const clamped = Math.max(-50, Math.min(50, cents));
+        centsDot.style.left = (50 + clamped) + "%";
+        centsDot.style.background = Math.abs(cents) < 8 ? "#5c8a82" : "#c9a24b";
+        centsLabel.textContent = (cents>0?"+":"") + cents + " cents · " + Math.round(freq) + " Hz";
+      } else {
+        noteBig.classList.remove('live');
+      }
     } else {
-      noteBig.classList.remove('live');
+      analyser.getFloatFrequencyData(freqBuf);
+      const chroma = computeChroma(freqBuf, audioCtx.sampleRate, analyser.fftSize);
+      const vocab = songVocabulary(tomIndex);
+      const scored = vocab.map(c => ({...c, score: scoreChord(chroma, c.root, c.quality)}))
+                           .sort((a,b)=>b.score-a.score);
+      const best = scored[0];
+      const expectedBar = flatBars[targetIdx];
+      const expectedLabel = chordName(expectedBar, tomIndex);
+
+      detectedChordEl.textContent = best.label;
+      const isMatch = best.label === expectedLabel;
+      detectedCard.className = "band-card " + (isMatch ? "match" : "mismatch");
+      const confidence = Math.max(0, Math.min(1, best.score));
+      matchFill.style.width = Math.round(confidence*100) + "%";
+      matchFill.className = "match-fill" + (isMatch ? " ok" : "");
+      matchLabel.textContent = isMatch ? "bate com o esperado ✓" : "ainda não bateu com " + expectedLabel;
+
+      candidatesRow.innerHTML = "";
+      scored.slice(0,4).forEach((c,i)=>{
+        const chip = document.createElement('span');
+        chip.className = "cand" + (i===0?" top":"");
+        chip.textContent = c.label;
+        candidatesRow.appendChild(chip);
+      });
     }
     rafId = requestAnimationFrame(loop);
   }
@@ -309,11 +456,13 @@ function stopListening(){
   micBtn.textContent = "▶ Ativar mic";
   micBtn.classList.remove('listening');
   micStatus.textContent = "";
-  noteBig.textContent = "—";
-  noteBig.classList.remove('live');
-  noteOct.textContent = "";
-  centsLabel.textContent = "toque uma nota isolada";
-  centsDot.style.left = "50%";
+  noteBig.textContent = "—"; noteBig.classList.remove('live'); noteOct.textContent = "";
+  centsLabel.textContent = "toque uma nota isolada"; centsDot.style.left = "50%";
+  detectedChordEl.textContent = "—";
+  detectedCard.className = "band-card";
+  matchFill.style.width = "0%"; matchFill.className = "match-fill";
+  matchLabel.textContent = "aguardando áudio...";
+  candidatesRow.innerHTML = "";
 }
 let listening = false;
 micBtn.addEventListener('click', ()=>{
